@@ -39,6 +39,7 @@ contract PoolRound {
 
     mapping(uint256 => Round) public rounds;
     mapping(bytes32 => bool) public consumedObligations;
+    mapping(bytes32 => uint256) public activeObligationRound;
 
     event RoundCreated(
         uint256 indexed roundId,
@@ -61,6 +62,7 @@ contract PoolRound {
     error DuplicateAction();
     error TransferFailed();
     error ObligationAlreadyConsumed();
+    error ObligationAlreadyActive();
     error Reentrancy();
 
     modifier onlyMember() {
@@ -94,6 +96,7 @@ contract PoolRound {
                 || deadline <= block.timestamp
         ) revert InvalidTerms();
         if (consumedObligations[obligationDigest]) revert ObligationAlreadyConsumed();
+        if (activeObligationRound[obligationDigest] != 0) revert ObligationAlreadyActive();
         roundId = nextRoundId++;
         rounds[roundId] = Round({
             obligationDigest: obligationDigest,
@@ -109,12 +112,13 @@ contract PoolRound {
             cancelA: false,
             cancelB: false
         });
+        activeObligationRound[obligationDigest] = roundId;
         emit RoundCreated(roundId, obligationDigest, merchant, amountA, amountB, deadline);
     }
 
     function approveRound(uint256 roundId) external onlyMember {
         Round storage round = _round(roundId);
-        if (round.status != Status.Proposed) revert InvalidState();
+        if (round.status != Status.Proposed || block.timestamp > round.deadline) revert InvalidState();
         if (msg.sender == memberA) {
             if (round.approvedA) revert DuplicateAction();
             round.approvedA = true;
@@ -128,7 +132,7 @@ contract PoolRound {
 
     function contribute(uint256 roundId) external onlyMember nonReentrant {
         Round storage round = _round(roundId);
-        if (round.status != Status.Approved) revert InvalidState();
+        if (round.status != Status.Approved || block.timestamp > round.deadline) revert InvalidState();
         uint96 amount;
         if (msg.sender == memberA) {
             if (round.contributedA != 0) revert DuplicateAction();
@@ -152,6 +156,7 @@ contract PoolRound {
         if (consumedObligations[round.obligationDigest]) revert ObligationAlreadyConsumed();
         round.status = Status.Settled;
         consumedObligations[round.obligationDigest] = true;
+        activeObligationRound[round.obligationDigest] = 0;
         uint256 total = uint256(round.amountA) + uint256(round.amountB);
         if (!token.transfer(round.merchant, total)) revert TransferFailed();
         emit Settled(roundId, round.obligationDigest, round.merchant, total);
@@ -162,6 +167,10 @@ contract PoolRound {
         if (round.status != Status.Proposed && round.status != Status.Approved && round.status != Status.Funded) {
             revert InvalidState();
         }
+        if (round.status == Status.Proposed && !(round.approvedA && round.approvedB)) {
+            _cancel(roundId, round);
+            return;
+        }
         if (msg.sender == memberA) {
             if (round.cancelA) revert DuplicateAction();
             round.cancelA = true;
@@ -170,8 +179,7 @@ contract PoolRound {
             round.cancelB = true;
         }
         if (round.cancelA && round.cancelB) {
-            round.status = Status.Cancelled;
-            emit Cancelled(roundId);
+            _cancel(roundId, round);
         }
     }
 
@@ -180,8 +188,7 @@ contract PoolRound {
         if (block.timestamp <= round.deadline || round.status == Status.Settled || round.status == Status.Cancelled) {
             revert InvalidState();
         }
-        round.status = Status.Cancelled;
-        emit Cancelled(roundId);
+        _cancel(roundId, round);
     }
 
     function claimRefund(uint256 roundId) external onlyMember nonReentrant {
@@ -204,5 +211,10 @@ contract PoolRound {
         round = rounds[roundId];
         if (round.status == Status.None) revert InvalidRound();
     }
-}
 
+    function _cancel(uint256 roundId, Round storage round) internal {
+        round.status = Status.Cancelled;
+        activeObligationRound[round.obligationDigest] = 0;
+        emit Cancelled(roundId);
+    }
+}

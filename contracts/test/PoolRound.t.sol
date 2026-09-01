@@ -117,6 +117,31 @@ contract PoolRoundTest {
         pool.contribute(roundId);
     }
 
+    function testCannotOpenDuplicateActiveObligation() public {
+        vm.prank(A);
+        pool.createRound(OBLIGATION, MERCHANT, 25, 75, uint64(block.timestamp + 1 days));
+        vm.prank(B);
+        vm.expectRevert(PoolRound.ObligationAlreadyActive.selector);
+        pool.createRound(OBLIGATION, MERCHANT, 25, 75, uint64(block.timestamp + 1 days));
+    }
+
+    function testEitherMemberCanRejectBeforeUnanimousApproval() public {
+        vm.prank(A);
+        uint256 roundId = pool.createRound(keccak256("reject"), MERCHANT, 25, 75, uint64(block.timestamp + 1 days));
+        vm.prank(B);
+        pool.requestCancel(roundId);
+        (,,,,,,, PoolRound.Status status,,,,) = pool.rounds(roundId);
+        require(status == PoolRound.Status.Cancelled, "proposal was not cancelled");
+    }
+
+    function testCannotContributeAfterDeadline() public {
+        uint256 roundId = _createAndApprove(keccak256("late"), 25, 75);
+        vm.warp(block.timestamp + 2 days);
+        vm.prank(A);
+        vm.expectRevert(PoolRound.InvalidState.selector);
+        pool.contribute(roundId);
+    }
+
     function _createAndApprove(bytes32 digest, uint96 amountA, uint96 amountB) internal returns (uint256 roundId) {
         vm.prank(A);
         roundId = pool.createRound(digest, MERCHANT, amountA, amountB, uint64(block.timestamp + 1 days));
@@ -134,4 +159,3 @@ contract PoolRoundTest {
         require(value, reason);
     }
 }
-
