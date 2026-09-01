@@ -5,7 +5,7 @@ Evidence level: E3 fresh public product action for the integrated round below; E
 ## Integrated public journey — round 3
 
 - Public source commit: `f1ead37564ea859fea57264a6c3cc9ea85c694a5`
-- Validation route: temporary Cloudflare quick tunnel; intentionally not claimed as production hosting
+- Validation route: [`pooldeal.dolepee.com`](https://pooldeal.dolepee.com), with Vercel-managed TLS and an external rewrite to the temporary stateful validation worker; intentionally not claimed as final production hosting
 - Sibyl write: process `35574`, session `51f706ae-…-e75a1e`
 - Fresh recall: process `35577`, session `e5e8165a-…-634796`
 - Memory-disabled control: process `35579`, refusal `required Sibyl memory is missing`

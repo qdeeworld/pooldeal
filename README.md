@@ -4,6 +4,8 @@ PoolDeal remembers a jointly signed contribution obligation from an earlier team
 
 This repository began after the official build window opened on September 1, 2026. It is currently a bounded eligibility spike, not a finished submission.
 
+Live validation: [pooldeal.dolepee.com](https://pooldeal.dolepee.com). This custom-domain route currently bridges to a bounded stateful validation worker; it is not yet the final judging-window host.
+
 ## Memory call sites
 
 Judges can inspect the full Sibyl integration in under two minutes:
@@ -32,7 +34,7 @@ The memory gate launches session one and session two as different OS processes. 
 
 ## Public Base evidence
 
-The bounded Base Sepolia spike is recorded in [`evidence/base-sepolia-2026-09-01.md`](evidence/base-sepolia-2026-09-01.md). It proves exact 25/75 settlement, obligation-digest consumption, unanimous cancellation, and contributor-claimed refunds with public receipts. It remains E2 founder-operated evidence until the same action is available through the public product.
+The bounded Base Sepolia spike is recorded in [`evidence/base-sepolia-2026-09-01.md`](evidence/base-sepolia-2026-09-01.md). It proves exact 25/75 settlement, obligation-digest consumption, unanimous cancellation, and contributor-claimed refunds with public receipts. Round 3 is E3 fresh public-product execution through the integrated browser journey; it uses disclosed project-prepared wallets and is not PMF evidence.
 
 ## Safety boundary
 
