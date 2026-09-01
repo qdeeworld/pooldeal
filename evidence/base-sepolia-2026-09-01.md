@@ -1,6 +1,26 @@
 # Base Sepolia validation — 2026-09-01
 
-Evidence level: E2 observable replay. These transactions were founder-operated through the CLI. They prove public contract behavior, not independent use, PMF, or a judge-completable public product.
+Evidence level: E3 fresh public product action for the integrated round below; E2 founder-operated replay for the earlier CLI rounds. This proves the product path and public contract behavior, not independent adoption or PMF.
+
+## Integrated public journey — round 3
+
+- Public source commit: `f1ead37564ea859fea57264a6c3cc9ea85c694a5`
+- Validation route: temporary Cloudflare quick tunnel; intentionally not claimed as production hosting
+- Sibyl write: process `35574`, session `51f706ae-…-e75a1e`
+- Fresh recall: process `35577`, session `e5e8165a-…-634796`
+- Memory-disabled control: process `35579`, refusal `required Sibyl memory is missing`
+- Recalled obligation: `web-credit-bed5f52d-74bc-462d-b172-9671af146c21`
+- Obligation digest: `0x6bfd694d97b2b87125ba84b014b14e46b1e3bf3c80992a00b7459e713e9b0bb0`
+- Create exact round: [`0xa435a7ce88acf0bdcaef8ac44784a5d83bf37602200e6030f195418e8ac9919b`](https://sepolia.basescan.org/tx/0xa435a7ce88acf0bdcaef8ac44784a5d83bf37602200e6030f195418e8ac9919b)
+- Member A round approval: [`0xe73eadf9cecf2ec0f73f115ba0e869423e6f4ab8ec28f82bf2499edb14a8dcbf`](https://sepolia.basescan.org/tx/0xe73eadf9cecf2ec0f73f115ba0e869423e6f4ab8ec28f82bf2499edb14a8dcbf)
+- Member B round approval: [`0xa5443e59a37ca540cc9579867e2a6eeeb9c485e59ab8271881f68b285b576c65`](https://sepolia.basescan.org/tx/0xa5443e59a37ca540cc9579867e2a6eeeb9c485e59ab8271881f68b285b576c65)
+- Member A USDC approval: [`0x8f280b1c6667e255dc081abf0dbb8e43ea3ab892fd7148d2ad3e3623ada63a96`](https://sepolia.basescan.org/tx/0x8f280b1c6667e255dc081abf0dbb8e43ea3ab892fd7148d2ad3e3623ada63a96)
+- Member B USDC approval: [`0xbaef766866de66cf3ba8fab752dc9b523cd5549b7a7a6418e368dc181d18db1c`](https://sepolia.basescan.org/tx/0xbaef766866de66cf3ba8fab752dc9b523cd5549b7a7a6418e368dc181d18db1c)
+- Member A contributes 0.25 USDC: [`0x8ba6009ea43a69191c1f2a7ca33d8bfa4029e8d28241444039893a1bc40693aa`](https://sepolia.basescan.org/tx/0x8ba6009ea43a69191c1f2a7ca33d8bfa4029e8d28241444039893a1bc40693aa)
+- Member B contributes 0.75 USDC: [`0xf7f6f1ea92249c7d4803a354b77fbc56d7637882ea64caf2e59e099b441e7df1`](https://sepolia.basescan.org/tx/0xf7f6f1ea92249c7d4803a354b77fbc56d7637882ea64caf2e59e099b441e7df1)
+- Settlement: [`0x1fde92331437f500a6df9489647354cd6632ea79bd3d7989e44bfc475812fa2d`](https://sepolia.basescan.org/tx/0x1fde92331437f500a6df9489647354cd6632ea79bd3d7989e44bfc475812fa2d)
+
+Verified independently after the browser action: all eight receipts succeeded; round 3 status is `Settled` (`4`); recorded contributions are `250000/750000`; `consumedObligations(digest)` is `true`; `activeObligationRound(digest)` is zero; PoolRound holds zero USDC. Sibyl stores the obligation as `consumed` with the settlement transaction, and a new public recall process (`35702`) refuses it as not active. The browser journey was operated after explicit user authorization using disclosed prepared test wallets, so it is not independent customer evidence.
 
 ## Current validated release (v2)
 
