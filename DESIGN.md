@@ -8,6 +8,8 @@ description: One continuous user-first flow that makes a remembered contribution
 
 PoolDeal serves a two-person onchain team preparing a repeat purchase. The interface must make one product truth immediately legible: one member covered an extra amount previously, so the signed remembered obligation reduces that member's next contribution. The primary journey is an operational validation surface, not a marketing site, architecture viewer, or evaluator dashboard.
 
+Within ten seconds, a cold visitor must be able to name the user (a small onchain team buying AI services together), the prior event (member A paid 25 cents extra), and today's consequence (A's share of the next one-dollar purchase falls from 50 cents to 25 cents). Do not lead with sponsor terminology before those three facts are visible.
+
 ## Layout
 
 Use one linear workspace whose reading order matches the state transition: prior agreement, process restart, recalled split, wallet approvals, settlement, and consumption. Keep the flat 50/50 comparison adjacent to the recalled 25/75 proposal so the memory-caused difference is visible without narration. Keep Base receipts contextual to the action that produced them instead of moving proof into separate navigation.

@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="PoolDeal remembers who covered extra and changes the team's next contribution split.">
-    <title>PoolDeal — remembered team contributions</title>
+    <meta name="description" content="PoolDeal helps small onchain teams repay a teammate's earlier overpayment through the next shared purchase.">
+    <title>PoolDeal — fairer repeat team purchases</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
   </head>
   <body>
     <main class="shell">
       <header class="masthead">
         <div>
-          <p class="eyebrow">PoolDeal · live validation</p>
-          <h1>Remember who carried the last purchase.</h1>
-          <p class="lede">A signed $0.25 credit survives a fresh session, changes the next split, and is consumed by settlement.</p>
+          <p class="eyebrow">For small onchain teams buying AI services together</p>
+          <h1>Your teammate paid extra last time. Lower their share today.</h1>
+          <p class="lede">PoolDeal remembers a jointly signed 25¢ credit and changes the team's next $1 purchase from 50/50 to 25/75—even after the old session ends.</p>
         </div>
         <div class="runtime" aria-label="Runtime status">
           <span class="status-dot" aria-hidden="true"></span>
@@ -23,18 +23,18 @@
 
       <section class="moment" aria-labelledby="memory-heading">
         <div>
-          <p class="step-label">The memory moment</p>
-          <h2 id="memory-heading">Equal is not always settled.</h2>
-          <p id="memory-explanation">Start session one to record what the previous extra contribution meant.</p>
+          <p class="step-label">Today's $1 team purchase</p>
+          <h2 id="memory-heading">Member A paid 25¢ extra last time.</h2>
+          <p id="memory-explanation">Both teammates agreed it was a credit, not a gift. Remembering it lowers A's next contribution.</p>
         </div>
         <div class="split" aria-live="polite">
           <div>
-            <span>Without memory</span>
+            <span>Forget the credit</span>
             <strong id="flat-split">50 / 50</strong>
           </div>
           <span class="arrow" aria-hidden="true">→</span>
           <div class="changed">
-            <span>With Sibyl</span>
+            <span>Remember 25¢ credit</span>
             <strong id="memory-split">— / —</strong>
           </div>
         </div>
@@ -44,18 +44,18 @@
         <li class="stage" data-stage="write">
           <div class="stage-number">1</div>
           <div class="stage-copy">
-            <h3>Sign and remember the obligation</h3>
-            <p>Prepared test wallets agree that member A's extra $0.25 was repayable—not a gift.</p>
+            <h3>Agree what the extra payment meant</h3>
+            <p>Both teammates sign that member A's extra 25¢ should reduce A's next contribution.</p>
             <div class="evidence" id="write-evidence">No memory written yet.</div>
           </div>
-          <button id="write-button" type="button">Record prior credit</button>
+          <button id="write-button" type="button">Record signed 25¢ credit</button>
         </li>
 
         <li class="stage" data-stage="restart">
           <div class="stage-number">2</div>
           <div class="stage-copy">
-            <h3>End session one</h3>
-            <p>The next request will receive only the obligation ID and authenticated group—not the remembered amount.</p>
+            <h3>Close the old purchase session</h3>
+            <p>The old session ends. The next purchase will not receive the credit amount in its request.</p>
             <div class="evidence" id="restart-evidence">Waiting for session one.</div>
           </div>
           <button id="restart-button" type="button" disabled>End session</button>
@@ -64,18 +64,18 @@
         <li class="stage" data-stage="recall">
           <div class="stage-number">3</div>
           <div class="stage-copy">
-            <h3>Start fresh and calculate</h3>
-            <p>A new OS process recalls the signed obligation and changes the exact contribution proposal.</p>
+            <h3>Open the next team purchase</h3>
+            <p>A new process recalls the signed 25¢ credit and calculates what each teammate pays today.</p>
             <div class="evidence" id="recall-evidence">Fresh session not started.</div>
           </div>
-          <button id="recall-button" type="button" disabled>Recall in fresh session</button>
+          <button id="recall-button" type="button" disabled>Calculate the next split</button>
         </li>
 
         <li class="stage" data-stage="settle">
           <div class="stage-number">4</div>
           <div class="stage-copy">
-            <h3>Settle the remembered split</h3>
-            <p>Prepared Base Sepolia wallets approve and contribute exactly 0.25 / 0.75 USDC. Settlement consumes the same digest.</p>
+            <h3>Pay with the remembered split</h3>
+            <p>Prepared Base Sepolia wallets approve and contribute exactly 0.25 / 0.75 USDC. The used credit cannot be applied again.</p>
             <div class="evidence" id="settle-evidence">No onchain action yet.</div>
           </div>
           <button id="settle-button" type="button" disabled>Settle 1 USDC on Base</button>
@@ -86,14 +86,14 @@
         <div>
           <p class="step-label">Deletion test</p>
           <h2 id="control-heading">What happens without Sibyl?</h2>
-          <p>The identical fresh-session request must refuse. It cannot silently reconstruct 50/50 and call it history-aware.</p>
+          <p>Without the prior credit, PoolDeal refuses to guess what the teammates owe. It cannot pretend a new 50/50 split respects their history.</p>
         </div>
         <button id="ablation-button" class="secondary" type="button" disabled>Run memory-disabled control</button>
         <div class="control-result" id="ablation-result" aria-live="polite">Not run.</div>
       </section>
 
       <footer>
-        <p>Prepared test wallets · Base Sepolia · public validation only</p>
+        <p>Two prepared teammate wallets · Base Sepolia testnet</p>
         <a href="https://github.com/qdeeworld/pooldeal" target="_blank" rel="noreferrer">Source and evidence</a>
       </footer>
 
