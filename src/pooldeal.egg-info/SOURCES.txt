@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+src/pooldeal/__init__.py
+src/pooldeal/allocation.py
+src/pooldeal/cli.py
+src/pooldeal/errors.py
+src/pooldeal/identity.py
+src/pooldeal/memory.py
+src/pooldeal/obligation.py
+src/pooldeal.egg-info/PKG-INFO
+src/pooldeal.egg-info/SOURCES.txt
+src/pooldeal.egg-info/dependency_links.txt
+src/pooldeal.egg-info/entry_points.txt
+src/pooldeal.egg-info/requires.txt
+src/pooldeal.egg-info/top_level.txt
+tests/test_core.py

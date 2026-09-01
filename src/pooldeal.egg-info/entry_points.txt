@@ -1,0 +1,2 @@
+[console_scripts]
+pooldeal = pooldeal.cli:main
