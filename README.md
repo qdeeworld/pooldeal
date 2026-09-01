@@ -28,7 +28,10 @@ cd contracts && forge test -vv
 
 The memory gate launches session one and session two as different OS processes. Session two receives only the database path, authenticated group members, and obligation identifier; it does not receive the remembered amount or meaning. The ablation run uses the identical session-two request against an empty Sibyl store and must refuse.
 
+## Public Base evidence
+
+The bounded Base Sepolia spike is recorded in [`evidence/base-sepolia-2026-09-01.md`](evidence/base-sepolia-2026-09-01.md). It proves exact 25/75 settlement, obligation-digest consumption, unanimous cancellation, and contributor-claimed refunds with public receipts. It remains E2 founder-operated evidence until the same action is available through the public product.
+
 ## Safety boundary
 
 Sibyl stores the social meaning of the obligation. It never stores private keys and never authorizes transfers, custody, cancellation, or refunds. Wallet signatures authenticate the obligation. The Base contract independently prevents digest replay and owns settlement/refund state.
-
