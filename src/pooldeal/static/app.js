@@ -32,7 +32,7 @@ async function loadStatus() {
       ? `Ready · PID ${status.server_pid} · ${status.network}`
       : "Validation wallets unavailable";
     runtime.parentElement.classList.toggle("ready", status.ready);
-    byId("write-button").disabled = !status.ready;
+    if (!state.obligationId) byId("write-button").disabled = !status.ready;
   } catch (error) {
     byId("runtime-label").textContent = error.message;
   }
@@ -48,6 +48,7 @@ byId("write-button").addEventListener("click", async () => {
     byId("memory-explanation").textContent = result.meaning;
     complete("write");
     byId("restart-button").disabled = false;
+    button.disabled = true;
     button.textContent = "Prior credit recorded";
   } catch (error) {
     byId("write-evidence").textContent = error.message;
