@@ -35,3 +35,14 @@ def test_web_memory_journey_uses_fresh_processes(tmp_path: Path):
     assert ablated.status_code == 200
     assert ablated.get_json()["decision"] == "refuse"
 
+
+def test_missing_route_remains_not_found(tmp_path: Path):
+    a = Account.create()
+    b = Account.create()
+    app = create_app(
+        db_path=tmp_path / "memory.db",
+        member_a_key=a.key.hex(),
+        member_b_key=b.key.hex(),
+    )
+
+    assert app.test_client().get("/not-found").status_code == 404

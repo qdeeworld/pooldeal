@@ -14,6 +14,7 @@ from eth_account import Account
 from eth_account.messages import encode_defunct
 from flask import Flask, jsonify, render_template, request
 from web3 import Web3
+from werkzeug.exceptions import HTTPException
 
 from .identity import tenant_for_members
 from .obligation import obligation_digest, sign_record
@@ -284,6 +285,8 @@ def create_app(
 
     @app.errorhandler(Exception)
     def handle_error(error: Exception):
+        if isinstance(error, HTTPException):
+            return error
         return jsonify({"error": str(error)}), 400
 
     @app.get("/")
