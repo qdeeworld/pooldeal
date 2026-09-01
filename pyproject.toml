@@ -9,7 +9,9 @@ description = "Signed cross-session contribution obligations with Sibyl Memory"
 requires-python = ">=3.10"
 dependencies = [
   "eth-account>=0.13,<0.14",
+  "flask>=3.1,<4",
   "sibyl-memory-client==0.8.0",
+  "web3>=7,<8",
 ]
 
 [project.optional-dependencies]
@@ -17,6 +19,7 @@ dev = ["pytest>=8,<9"]
 
 [project.scripts]
 pooldeal = "pooldeal.cli:main"
+pooldeal-web = "pooldeal.web:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -24,6 +27,8 @@ package-dir = {"" = "src"}
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+pooldeal = ["templates/*.html", "static/*.css", "static/*.js"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PoolDeal remembers who covered extra and changes the team's next contribution split.">
+    <title>PoolDeal — remembered team contributions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">PoolDeal · live validation</p>
+          <h1>Remember who carried the last purchase.</h1>
+          <p class="lede">A signed $0.25 credit survives a fresh session, changes the next split, and is consumed by settlement.</p>
+        </div>
+        <div class="runtime" aria-label="Runtime status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="runtime-label">Checking runtime…</span>
+        </div>
+      </header>
+
+      <section class="moment" aria-labelledby="memory-heading">
+        <div>
+          <p class="step-label">The memory moment</p>
+          <h2 id="memory-heading">Equal is not always settled.</h2>
+          <p id="memory-explanation">Start session one to record what the previous extra contribution meant.</p>
+        </div>
+        <div class="split" aria-live="polite">
+          <div>
+            <span>Without memory</span>
+            <strong id="flat-split">50 / 50</strong>
+          </div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="changed">
+            <span>With Sibyl</span>
+            <strong id="memory-split">— / —</strong>
+          </div>
+        </div>
+      </section>
+
+      <ol class="journey" aria-label="PoolDeal validation journey">
+        <li class="stage" data-stage="write">
+          <div class="stage-number">1</div>
+          <div class="stage-copy">
+            <h3>Sign and remember the obligation</h3>
+            <p>Prepared test wallets agree that member A's extra $0.25 was repayable—not a gift.</p>
+            <div class="evidence" id="write-evidence">No memory written yet.</div>
+          </div>
+          <button id="write-button" type="button">Record prior credit</button>
+        </li>
+
+        <li class="stage" data-stage="restart">
+          <div class="stage-number">2</div>
+          <div class="stage-copy">
+            <h3>End session one</h3>
+            <p>The next request will receive only the obligation ID and authenticated group—not the remembered amount.</p>
+            <div class="evidence" id="restart-evidence">Waiting for session one.</div>
+          </div>
+          <button id="restart-button" type="button" disabled>End session</button>
+        </li>
+
+        <li class="stage" data-stage="recall">
+          <div class="stage-number">3</div>
+          <div class="stage-copy">
+            <h3>Start fresh and calculate</h3>
+            <p>A new OS process recalls the signed obligation and changes the exact contribution proposal.</p>
+            <div class="evidence" id="recall-evidence">Fresh session not started.</div>
+          </div>
+          <button id="recall-button" type="button" disabled>Recall in fresh session</button>
+        </li>
+
+        <li class="stage" data-stage="settle">
+          <div class="stage-number">4</div>
+          <div class="stage-copy">
+            <h3>Settle the remembered split</h3>
+            <p>Prepared Base Sepolia wallets approve and contribute exactly 0.25 / 0.75 USDC. Settlement consumes the same digest.</p>
+            <div class="evidence" id="settle-evidence">No onchain action yet.</div>
+          </div>
+          <button id="settle-button" type="button" disabled>Settle 1 USDC on Base</button>
+        </li>
+      </ol>
+
+      <section class="control" aria-labelledby="control-heading">
+        <div>
+          <p class="step-label">Deletion test</p>
+          <h2 id="control-heading">What happens without Sibyl?</h2>
+          <p>The identical fresh-session request must refuse. It cannot silently reconstruct 50/50 and call it history-aware.</p>
+        </div>
+        <button id="ablation-button" class="secondary" type="button" disabled>Run memory-disabled control</button>
+        <div class="control-result" id="ablation-result" aria-live="polite">Not run.</div>
+      </section>
+
+      <footer>
+        <p>Prepared test wallets · Base Sepolia · public validation only</p>
+        <a href="https://github.com/qdeeworld/pooldeal" target="_blank" rel="noreferrer">Source and evidence</a>
+      </footer>
+
+      <dialog id="settlement-dialog" aria-labelledby="settlement-dialog-title">
+        <form method="dialog">
+          <p class="step-label">Final testnet action</p>
+          <h2 id="settlement-dialog-title">Settle 1 USDC on Base Sepolia?</h2>
+          <p>This submits prepared-wallet approvals and contributions, pays the test merchant, and consumes this memory. It cannot be undone.</p>
+          <div class="dialog-actions">
+            <button class="secondary" value="cancel">Cancel</button>
+            <button id="confirm-settlement" value="confirm">Settle testnet USDC</button>
+          </div>
+        </form>
+      </dialog>
+    </main>
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </body>
+</html>

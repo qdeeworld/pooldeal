@@ -26,6 +26,8 @@ python3 -m venv .venv
 cd contracts && forge test -vv
 ```
 
+For the bounded integrated validation surface, provide two Base Sepolia-only prepared wallet keys through `POOLDEAL_MEMBER_A_KEY` and `POOLDEAL_MEMBER_B_KEY`, then run `.venv/bin/pooldeal-web`. The browser journey writes and recalls through separate CLI subprocesses. The live settlement endpoint is capped by `POOLDEAL_MAX_SETTLEMENTS` and must never receive production keys.
+
 The memory gate launches session one and session two as different OS processes. Session two receives only the database path, authenticated group members, and obligation identifier; it does not receive the remembered amount or meaning. The ablation run uses the identical session-two request against an empty Sibyl store and must refuse.
 
 ## Public Base evidence
